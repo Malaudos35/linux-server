@@ -197,7 +197,7 @@ max-lease-time 30;
 }" > "/etc/dhcp/dhcpd.conf"
 
     echo "
-INTERFACESv4=$interface
+INTERFACESv4=\"$interface\"
 INTERFACESv6=\"\"
 " > "/etc/default/isc-dhcp-server"
 
