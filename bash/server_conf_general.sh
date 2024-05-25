@@ -1,7 +1,22 @@
+#!/bin/bash
+
+# Fonction pour afficher des messages avec des couleurs
+info() {
+    echo -e "\e[92m[INFO-GENERALE] $1\e[0m"
+}
+
+error() {
+    echo -e "\e[31m[ERROR-GENERALE] $1\e[0m"
+}
+
+aide() {
+    echo -e "\e[33m[aide-GENERALE] $1\e[0m"
+}
 
 
-
-# met les authorisation d executiona tous les fichiers
+info "Configuration et installation general du server"
+echo ""
+# met les authorisation d execution a tous les fichiers
 sudo chmod +x *
 
 # Configurer les mises à jour automatiques
@@ -10,18 +25,18 @@ sudo chmod +x *
 
 # Configurer les paramètres de veille et d'économie d'énergie
 
-mv /etc/systemd/logind.conf /etc/systemd/logind-old.conf
+# mv /etc/systemd/logind.conf /etc/systemd/logind-old.conf
 
-echo "[Login]
-HandleLidSwitch=ignore
-HandleLidSwitchDocked=ignore
-HandleSuspendKey=ignore
-HandleHibernateKey=ignore
-HandlePowerKey=poweroff
-IdleAction=ignore
-" > "/etc/systemd/logind.conf"
+# echo "[Login]
+# HandleLidSwitch=ignore
+# HandleLidSwitchDocked=ignore
+# HandleSuspendKey=ignore
+# HandleHibernateKey=ignore
+# HandlePowerKey=poweroff
+# IdleAction=ignore
+# " > "/etc/systemd/logind.conf"
 
-sudo systemctl restart systemd-logind
+# sudo systemctl restart systemd-logind
 
 # Configurer les paramètres du noyau (sysctl)
 
@@ -56,36 +71,41 @@ net.ipv4.icmp_echo_ignore_broadcasts = 1
 sudo sysctl -p
 
 # Configurer le pare-feu
+info "Configure les pare-feu"
 
 sudo apt install ufw -y
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
+# sudo ufw allow ssh
+# sudo ufw allow http
+# sudo ufw allow https
 sudo ufw enable
 
 # Configurer des limites d'utilisateur
-
+info "Configure la limite d'utillisateur"
 echo "* hard nofile 4096
 * soft nofile 1024
 * hard nproc 1024
 * soft nproc 512
 " > "/etc/security/limits.conf"
 
-# dessactiver l interface graphique
+# desactive l interface graphique et la veille automatique
+info "Desactive l'interface graphique et la veille automatique"
 
-sudo systemctl set-default multi-user.target
-# sudo apt-get remove --purge gnome-shell
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo systemctl set-default multi-user
 
 # installation des connexion ssh et ftp
+info "Installation du ssh et ftp"
 sudo ./ssh.sh
 sudo ./ftp.sh
 
 # installation du serverweb
+info "installation du server web"
 sudo ./server_web.sh
 
 
-# met a jour le serveur et supprime les paquet qui ne sont plus necessaires
-sudo ./maj.sh
+# met a jour le serveur tout les 24h et supprime les paquet qui ne sont plus necessaires
+info "Mise a jour et rapelle crone"
+sudo ./maj.sh -t 24
 sudo apt-get autoremove
