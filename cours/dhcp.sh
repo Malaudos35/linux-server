@@ -1,5 +1,5 @@
 #!/bin/bash
-
+interface="ens192"
 # Fonction pour afficher des messages avec des couleurs
 info() {
     echo -e "\e[32m[INFO] $1\e[0m"
@@ -22,13 +22,12 @@ echo "Mise à jour des paquets..."
 apt-get update
 
 # Installation des paquets isc-dhcp-server et bind9
-echo "Installation des paquets isc-dhcp-server et bind9..."
-apt-get install -y isc-dhcp-server bind9
+echo "Installation des paquets isc-dhcp-server ..."
+apt-get install -y isc-dhcp-server 
 
 # Vérification de l'installation
 echo "Vérification de l'installation des paquets..."
 dpkg --get-selections | grep "isc-dhcp-server"
-dpkg --get-selections | grep "bind9"
 
 # Configuration du serveur DHCP
 echo "Configuration du serveur DHCP..."
@@ -47,7 +46,10 @@ EOL
 
 # Configuration de l'interface réseau pour le serveur DHCP
 echo "Configuration de l'interface réseau pour le serveur DHCP..."
-sed -i 's/^INTERFACES=.*$/INTERFACES="ens192"/' /etc/default/isc-dhcp-server
+# sed -i 's/^INTERFACES=.*$/INTERFACES="ens192"/' /etc/default/isc-dhcp-server
+echo "INTERFACESv4=\"$interface\"
+INTERFACESv6=\"\"
+" >  "/etc/default/isc-dhcp-server"
 
 # Démarrage du service DHCP
 echo "Démarrage du service DHCP..."
@@ -58,8 +60,8 @@ echo "Vérification du démarrage du service DHCP dans le syslog..."
 grep -i dhcp /var/log/syslog
 
 # Vérification que le processus écoute sur les ports attendus
-echo "Vérification que le processus écoute sur les ports attendus..."
-netstat -lnptu | grep dhcp
+# echo "Vérification que le processus écoute sur les ports attendus..."
+# netstat -lnptu | grep dhcp
 
 # # Fonctionnement du client DHCP
 # # Ajout de l'identifier du serveur DHCP au fichier dhclient.conf
@@ -72,6 +74,8 @@ netstat -lnptu | grep dhcp
 # echo "Révocation de l'adresse IP obtenue et redémarrage du client DHCP..."
 # dhclient -r ens192
 # dhclient -v ens192
+systemctl restart isc-dhcp-server
+systemctl status isc-dhcp-server
 
 echo "Script d'installation et de configuration du serveur DHCP terminé."
 
