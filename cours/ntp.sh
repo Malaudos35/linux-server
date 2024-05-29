@@ -39,7 +39,7 @@ sudo systemctl restart ntp
 
 # Vérifier le statut du service NTP
 echo "Statut du service NTP:"
-sudo systemctl status ntp
+# sudo systemctl status ntp
 
 echo "Configuration terminée. Le serveur NTP $NTP_SERVER a été ajouté."
 

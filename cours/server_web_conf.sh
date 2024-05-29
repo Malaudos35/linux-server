@@ -72,7 +72,7 @@ sudo ufw enable -y
 
 # Vérifier l'état d'Apache
 sudo systemctl restart apache2
-sudo systemctl status apache2
+# sudo systemctl status apache2
 
 # Afficher un message de confirmation
 echo "Site installé "

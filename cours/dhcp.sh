@@ -76,7 +76,7 @@ echo "Démarrage du service DHCP..."
 # dhclient -r ens192
 # dhclient -v ens192
 systemctl restart isc-dhcp-server
-systemctl status isc-dhcp-server
+# systemctl status isc-dhcp-server
 
 echo "Script d'installation et de configuration du serveur DHCP terminé."
 

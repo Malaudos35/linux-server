@@ -71,6 +71,6 @@ site2.mon.lan. IN A 10.200.24.250
 # sudo named-checkzone 
 
 sudo systemctl restart bind9
-sudo systemctl status bind9
+# sudo systemctl status bind9
 
 

@@ -26,7 +26,7 @@ sudo apt install mariadb-server -y
 info "Démarrage des services..."
 #sudo systemctl start apache2
 sudo service apache2 restart
-sudo systemctl start mariadb
+sudo systemctl restart mariadb
 
 # Activation des services au démarrage
 info "Activation des services au démarrage..."
