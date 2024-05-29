@@ -1,5 +1,10 @@
 #!/bin/bash
-interface="ens192"
+# interface="ens192"
+# Récupérer le nom de la carte réseau
+interface=$(ip route get 1 | awk '{print $5}')
+
+ip addr add 10.200.24.252/24 dev $interface
+
 # Fonction pour afficher des messages avec des couleurs
 info() {
     echo -e "\e[32m[INFO] $1\e[0m"
@@ -16,10 +21,6 @@ aide() {
 # Suppression du paquet UDHCPD s'il existe
 echo "Suppression du paquet UDHCPD s'il existe..."
 apt-get remove --purge -y udhcpd
-
-# Mise à jour des paquets
-echo "Mise à jour des paquets..."
-apt-get update
 
 # Installation des paquets isc-dhcp-server et bind9
 echo "Installation des paquets isc-dhcp-server ..."
@@ -53,11 +54,11 @@ INTERFACESv6=\"\"
 
 # Démarrage du service DHCP
 echo "Démarrage du service DHCP..."
-service isc-dhcp-server restart
+# service isc-dhcp-server restart
 
 # Vérification du démarrage du service DHCP dans le syslog
-echo "Vérification du démarrage du service DHCP dans le syslog..."
-grep -i dhcp /var/log/syslog
+# echo "Vérification du démarrage du service DHCP dans le syslog..."
+# grep -i dhcp /var/log/syslog
 
 # Vérification que le processus écoute sur les ports attendus
 # echo "Vérification que le processus écoute sur les ports attendus..."

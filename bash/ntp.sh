@@ -11,10 +11,6 @@ fi
 
 NTP_SERVER=$1
 
-# Mettre à jour les paquets
-echo "Mise à jour des paquets..."
-sudo apt-get update
-
 # Installer le paquet ntp si nécessaire
 if ! dpkg -l | grep -q ntp; then
   echo "Installation de ntp..."

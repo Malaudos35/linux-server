@@ -108,4 +108,4 @@ sudo ./server_web.sh
 # met a jour le serveur tout les 24h et supprime les paquet qui ne sont plus necessaires
 info "Mise a jour et rapelle crone"
 sudo ./maj.sh -t 24
-sudo apt-get autoremove
+sudo apt-get autoremove -y

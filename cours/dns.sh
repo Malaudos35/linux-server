@@ -43,24 +43,23 @@ echo "
 \$TTL 3H
 @ IN SOA  ns.mon.lan. mailaddress.mon.lan (
 2         ; Serial
-6H         ; Refresh
-1H         ; Retry
-5D         ; Expire
-1D )       ; Negative Cache TTL
+6H        ; Refresh
+1H        ; Retry
+5D        ; Expire
+1D )      ; Negative Cache TTL
 ;
-@ IN NS ns.mon.lan
-@ IN MX 10 mail.mon.lan
-ns A 10.200.24.1
-serveur A 10.200.24.250
-client A 10.200.24.11
-routeur24 A 10.200.24.254
-commut24 A 10.200.24.253
+@ IN NS ns.mon.lan.
+@ IN MX 10 mail.mon.lan.
+ns.mon.lan. A 10.200.24.1
+serveur.mon.lan. A 10.200.24.250
+client.mon.lan. A 10.200.24.11
+routeur24.mon.lan. A 10.200.24.254
+commut24.mon.lan. A 10.200.24.253
 
-; name server RR for the domain
-;           IN      NS      ns1.mon.lan.
-; URL IN A IP
 site1.mon.lan. IN A 10.200.24.250
 site2.mon.lan. IN A 10.200.24.250
+
+
 
 " > "/etc/bind/db.mon.lan" 
     

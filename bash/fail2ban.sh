@@ -9,9 +9,6 @@ error() {
     echo -e "\e[31m[ERROR] $1\e[0m"
 }
 
-# Mettre à jour les paquets et installer Fail2Ban
-info "Mise à jour des paquets..."
-sudo apt-get update || { error "Échec de la mise à jour des paquets"; exit 1; }
 
 info "Installation de Fail2Ban..."
 sudo apt-get install -y fail2ban || { error "Échec de l'installation de Fail2Ban"; exit 1; }

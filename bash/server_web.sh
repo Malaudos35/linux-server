@@ -15,7 +15,6 @@ aide() {
 
 # Installation d'Apache
 info "Installation d'Apache..."
-sudo apt update
 sudo apt install apache2 -y
 
 # Installation de MariaDB

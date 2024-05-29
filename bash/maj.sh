@@ -43,7 +43,7 @@ fi
 
 # Mettre à jour la liste des paquets
 info "Mise à jour de la liste des paquets..."
-sudo apt update
+sudo apt update -y
 
 # Effectuer la mise à jour du système
 info "Mise à jour du système..."
