@@ -22,4 +22,6 @@ sudo chmod +x *
 ./server_web_conf.sh
 ./maj.sh 
 
+sudo apt-get install curl -y
+
 ./test_install.sh

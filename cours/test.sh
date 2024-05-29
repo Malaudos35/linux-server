@@ -56,4 +56,4 @@ echo "
 " > /var/www/html/index.html
 # Vérifier l'état d'Apache
 sudo systemctl restart apache2
-sudo systemctl status apache2
+# sudo systemctl status apache2
