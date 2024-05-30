@@ -124,4 +124,4 @@ sudo systemctl restart bind9
 
 # Vérification de l'état du service BIND
 info "Vérification de l'état du service BIND..."
-sudo systemctl status bind9
+#sudo systemctl status bind9
