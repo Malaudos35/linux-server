@@ -58,6 +58,66 @@ EOF'
 
 sudo ufw allow dns
 
+echo "// This is the primary configuration file for the BIND DNS server named.
+//
+// Please read /usr/share/doc/bind9/README.Debian for information on the
+// structure of BIND configuration files in Debian, *BEFORE* you customize
+// this configuration file.
+//
+// If you are just adding zones, please do that in /etc/bind/named.conf.local
+
+// Include additional configuration files
+include \"/etc/bind/named.conf.options\";
+include \"/etc/bind/named.conf.local\";
+include \"/etc/bind/named.conf.default-zones\";
+
+// Logging configuration
+logging {
+    // Default log channel
+    channel default_log {
+        file \"/var/log/named/named.log\" versions 3 size 5m;
+        severity info;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    // Query log channel
+    channel query_log {
+        file \"/var/log/named/query.log\" versions 3 size 5m;
+        severity info;
+        print-time yes;
+    };
+
+    // Log categories
+    category default { default_log; };
+    category queries { query_log; };
+};
+" > "/etc/bind/named.conf"
+
+sudo mkdir -p /var/log/named
+sudo chown bind:bind /var/log/named
+sudo chmod 755 /var/log/named
+
+sudo apt install logrotate
+
+echo "/var/log/named/*.log {
+    weekly
+    rotate 12
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 bind bind
+    sharedscripts
+    postrotate
+        systemctl reload bind9 > /dev/null
+    endscript
+}
+" > "/etc/logrotate.d/bind9"
+
+sudo logrotate -f /etc/logrotate.d/bind9
+
 # Redémarrage du service BIND
 info "Redémarrage du service BIND..."
 sudo systemctl restart bind9

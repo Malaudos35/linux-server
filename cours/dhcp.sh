@@ -43,6 +43,8 @@ subnet 10.200.24.0 netmask 255.255.255.0 {
     default-lease-time 30;
     max-lease-time 30;
 }
+log-facility local7;
+
 EOL
 
 # Configuration de l'interface réseau pour le serveur DHCP
@@ -56,26 +58,32 @@ INTERFACESv6=\"\"
 echo "Démarrage du service DHCP..."
 # service isc-dhcp-server restart
 
-# Vérification du démarrage du service DHCP dans le syslog
-# echo "Vérification du démarrage du service DHCP dans le syslog..."
-# grep -i dhcp /var/log/syslog
+echo "local7.* /var/log/dhcpd.log
+" > "/etc/rsyslog.d/dhcpd.conf"
 
-# Vérification que le processus écoute sur les ports attendus
-# echo "Vérification que le processus écoute sur les ports attendus..."
-# netstat -lnptu | grep dhcp
+sudo touch /var/log/dhcpd.log
+sudo chmod 644 /var/log/dhcpd.log
+sudo chown syslog:adm /var/log/dhcpd.log
 
-# # Fonctionnement du client DHCP
-# # Ajout de l'identifier du serveur DHCP au fichier dhclient.conf
-# echo "Configuration du client DHCP..."
-# cat <<EOL >> /etc/dhcp/dhclient.conf
-# send dhcp-server-identifier 192.168.1.19;
-# EOL
+echo "/var/log/dhcpd.log {
+    weekly
+    rotate 12
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 644 syslog adm
+    sharedscripts
+    postrotate
+        systemctl restart isc-dhcp-server > /dev/null
+    endscript
+}
+" > "/etc/logrotate.d/isc-dhcp-server"
 
-# # Révocation de l'adresse IP obtenue et redémarrage du client DHCP
-# echo "Révocation de l'adresse IP obtenue et redémarrage du client DHCP..."
-# dhclient -r ens192
-# dhclient -v ens192
-systemctl restart isc-dhcp-server
+sudo systemctl restart rsyslog
+
+
+sudo systemctl restart isc-dhcp-server
 # systemctl status isc-dhcp-server
 
 echo "Script d'installation et de configuration du serveur DHCP terminé."
