@@ -3,7 +3,7 @@ if [ -z "$1" ]; then
   exit 1
 fi
 echo "
-[$1] 
+[$1]
 Usename = $1 
 Secret = bonjour 
 Host = dynamic 
