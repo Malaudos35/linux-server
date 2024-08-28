@@ -1,4 +1,4 @@
-
+#!/bin/sh
 
 echo "
 nameserver 127.0.0.1
@@ -9,5 +9,5 @@ nameserver 8.8.8.8
 # nameserver 192.168.1.254
 interface=$(ip route get 1 | awk '{print $5}')
 
-ip addr add 10.200.24.250/24 dev $interface
-ip addr add 10.200.24.252/24 dev $interface
+ip addr add 10.200.24.250/24 dev "$interface"
+ip addr add 10.200.24.252/24 dev "$interface"

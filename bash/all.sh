@@ -1,3 +1,4 @@
+#!/bin/sh
 
 echo "installation general "
 sudo chmox +x maj.sh

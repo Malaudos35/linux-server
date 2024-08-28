@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "installation des sites web"
 echo "
 <VirtualHost *:80>

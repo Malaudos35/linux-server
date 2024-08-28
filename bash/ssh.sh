@@ -1,3 +1,5 @@
+#!/bin/sh
+
 root=no
 fail=3
 port=22
@@ -57,8 +59,8 @@ done
 
 shift $((OPTIND -1))
 
-info $root
-info $fail
+info "$root"
+info "$fail"
 
 # sudo apt update 
 # sudo apt upgrade

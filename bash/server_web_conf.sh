@@ -86,8 +86,8 @@ echo "<VirtualHost *:$port>
 fi
 
 # Créer le répertoire et le fichier index.html
-mkdir -p /var/www/$fichier
-touch /var/www/$fichier/index.html
+mkdir -p "/var/www/$fichier"
+touch "/var/www/$fichier/index.html"
 echo "
 <html>
  <body>
@@ -95,7 +95,7 @@ echo "
  <p>Bienvenue sur le site web du $nom.</p>
  </body>
  </html>$nom
-" > /var/www/$fichier/index.html
+" > "/var/www/$fichier/index.html"
 
 # Vérifier l'état d'Apache
 sudo systemctl restart apache2
