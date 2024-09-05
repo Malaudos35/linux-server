@@ -13,7 +13,7 @@ aide() {
     echo -e "\e[33m[aide] $1\e[0m"
 }
 
-url = "b9.lan"
+url = "b9.l an"
 
 # Suppression des anciennes zones BIND
 # sudo rm -f /etc/bind/zones/*
@@ -26,36 +26,33 @@ sudo apt install -y bind9 bind9utils bind9-doc
 # Configuration de named.conf.local
 info "Configuration de named.conf.local..."
 sudo bash -c 'cat <<EOF > /etc/bind/named.conf.local
-zone "mon.lan" {
+zone "b9.lan" {
     type master;
-    file "/etc/bind/db.mon.lan";
+    file "/etc/bind/db.b9.lan";
 };
 EOF'
 
 # Création du fichier de zone directe
 info "Création du fichier de zone directe..."
-sudo bash -c 'cat <<EOF > /etc/bind/db.mon.lan
+sudo bash -c 'cat <<EOF > /etc/bind/db.b9.lan
 ;
-; BIND data file for 'mon.lan'
+; BIND data file for 'b9.lan'
 ;
 \$TTL 3H
-@ IN SOA  ns.mon.lan. mailaddress.mon.lan (
+@ IN SOA  ns.b9.lan. mail.b9.lan (
 2         ; Serial
 6H        ; Refresh
 1H        ; Retry
 5D        ; Expire
 1D )      ; Negative Cache TTL
 ;
-@ IN NS ns.mon.lan.
-@ IN MX 10 mail.mon.lan.
-ns.mon.lan. A 10.200.24.1
-mail.mon.lan. A 10.200.24.1
-serveur.mon.lan. A 10.200.24.250
-client.mon.lan. A 10.200.24.11
-routeur24.mon.lan. A 10.200.24.254
-commut24.mon.lan. A 10.200.24.253
-site1.mon.lan. IN A 10.200.24.250
-site2.mon.lan. IN A 10.200.24.250
+@ IN NS ns.b9.lan.
+@ IN MX 10 mail.b9.lan.
+ns.b9.lan. A 10.10.9.1
+mail.b9.lan. A 10.10.9.2
+serveur.b9.lan. A 10.10.9.1
+client.b9.lan. A 10.10.9.4
+graylog.b9.lan A 10.10.9.5
 EOF'
 
 sudo ufw allow dns
