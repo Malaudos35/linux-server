@@ -49,8 +49,8 @@ echo "
 # /etc/apache2/sites-enabled/000-default.conf
 
 Listen 80
-Listen 81
-Listen 82
+# Listen 81
+# Listen 82
 
 <IfModule ssl_module>
         Listen 443
@@ -63,10 +63,10 @@ Listen 82
 " > "/etc/apache2/ports.conf"
 
 sudo apt-get install afw
-sudo ufw allow 81/tcp
-sudo ufw allow 82/tcp
-sudo ufw allow 81/udp
-sudo ufw allow 82/udp
+# sudo ufw allow 81/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 80/udp
+# sudo ufw allow 82/udp
 
 sudo ufw enable -y
 

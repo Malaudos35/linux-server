@@ -26,7 +26,7 @@ check_service_status() {
 # Appeler la fonction pour vérifier l'état de chaque service
 check_service_status "bind9"
 check_service_status "isc-dhcp-server"
-check_service_status "ntp"
+# check_service_status "ntp"
 check_service_status "rsyslog"
 check_service_status "apache2"
 
@@ -45,7 +45,7 @@ check_port() {
 }
 
 # Ports à vérifier
-ports=(80 81 82)
+ports=(80)
 
 # Vérifier la connectivité pour chaque port
 for port in "${ports[@]}"; do
@@ -58,7 +58,7 @@ aide "test dns"
 
 #!/bin/bash
 
-if sudo named-checkzone mon.lan /etc/bind/db.mon.lan; then
+if sudo named-checkzone b9.lan /etc/bind/db.mon.lan; then
     info "La configuration de la zone est correcte."
 else
     error "Erreur dans la configuration de la zone."
@@ -66,7 +66,13 @@ else
 fi
 
 # Définition des hôtes à pinguer avec leurs adresses IP
-hosts=("serveur.mon.lan" "client.mon.lan" "routeur24.mon.lan" "commut24.mon.lan" "site1.mon.lan" "site2.mon.lan" "google.fr")
+hosts=("serveur.mon.lan" 
+"client.mon.lan" 
+"routeur24.mon.lan" 
+"commut24.mon.lan" 
+"site1.mon.lan" 
+"site2.mon.lan" 
+"google.fr")
 
 # Fonction pour tester le ping vers un hôte
 test_ping() {

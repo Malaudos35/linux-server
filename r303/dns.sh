@@ -15,6 +15,7 @@ aide() {
 
 url = "b9.l an"
 
+sudo apt-get install -y ufw
 # Suppression des anciennes zones BIND
 # sudo rm -f /etc/bind/zones/*
 

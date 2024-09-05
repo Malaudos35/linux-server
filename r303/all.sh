@@ -16,12 +16,11 @@ sudo chmod +x *
 
 ./dhcp.sh 
 ./dns.sh 
-./ntp.sh 10.200.24.254
-./rsyslog-client-linux.sh 
+# ./rsyslog-client-linux.sh 
 ./server_web.sh 
 ./server_web_conf.sh
 ./maj.sh 
 
-sudo apt-get install curl -y
+# sudo apt-get install curl -y
 
 ./test_install.sh

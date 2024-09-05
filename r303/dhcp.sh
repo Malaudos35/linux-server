@@ -5,6 +5,8 @@ interface=$(ip route get 1 | awk '{print $5}')
 
 # ip addr add 10.200.24.252/24 dev $interface
 
+sudo apt-get install -y rsyslog
+
 # Fonction pour afficher des messages avec des couleurs
 info() {
     echo -e "\e[32m[INFO] $1\e[0m"
@@ -57,6 +59,8 @@ INTERFACESv6=\"\"
 # Démarrage du service DHCP
 echo "Démarrage du service DHCP..."
 # service isc-dhcp-server restart
+
+mkdir -p "/etc/rsyslog.d"
 
 echo "local7.* /var/log/dhcpd.log
 " > "/etc/rsyslog.d/dhcpd.conf"
