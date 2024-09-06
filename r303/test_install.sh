@@ -58,7 +58,7 @@ aide "test dns"
 
 #!/bin/bash
 
-if sudo named-checkzone b9.lan /etc/bind/db.mon.lan; then
+if sudo named-checkzone b9.lan /etc/bind/db.b9.lan; then
     info "La configuration de la zone est correcte."
 else
     error "Erreur dans la configuration de la zone."
@@ -66,12 +66,12 @@ else
 fi
 
 # Définition des hôtes à pinguer avec leurs adresses IP
-hosts=("serveur.mon.lan" 
-"client.mon.lan" 
-"routeur24.mon.lan" 
-"commut24.mon.lan" 
-"site1.mon.lan" 
-"site2.mon.lan" 
+hosts=("serveur.b9.lan" 
+"client.b9.lan" 
+"routeur24.b9.lan" 
+"commut24.b9.lan" 
+"site1.b9.lan" 
+"site2.b9.lan" 
 "google.fr")
 
 # Fonction pour tester le ping vers un hôte

@@ -49,7 +49,7 @@ subnet 10.10.0.0 netmask 255.255.0.0 {
     log-facility local7;
 
     host windows {
-        hardware ethernet 00:50:56:87:CD:6D;
+        hardware ethernet 00:50:56:B7:CD:6D;
         fixed-address 10.10.9.3;
     }
 
