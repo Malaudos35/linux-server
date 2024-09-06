@@ -13,7 +13,7 @@ aide() {
     echo -e "\e[33m[aide] $1\e[0m"
 }
 
-url = "b9.l an"
+url = "b9.lan"
 
 sudo apt-get install -y ufw
 # Suppression des anciennes zones BIND
@@ -30,6 +30,9 @@ sudo bash -c 'cat <<EOF > /etc/bind/named.conf.local
 zone "b9.lan" {
     type master;
     file "/etc/bind/db.b9.lan";
+    allow-transfer { 10.10.10.2; };  # IP du serveur DNS secondaire
+    also-notify { 10.10.10.2; };     # Notifie le DNS secondaire en cas de changement
+
 };
 EOF'
 
@@ -124,4 +127,7 @@ sudo systemctl restart bind9
 
 # Vérification de l'état du service BIND
 info "Vérification de l'état du service BIND..."
-#sudo systemctl status bind9
+sudo systemctl status bind9
+
+sudo named-checkzone b9.lan /etc/bind/db.b9.lan
+
