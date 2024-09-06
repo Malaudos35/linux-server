@@ -37,15 +37,42 @@ echo "Configuration du serveur DHCP..."
 cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.defaut
 
 cat <<EOL > /etc/dhcp/dhcpd.conf
-subnet 10.10.9.0 netmask 255.255.0.0 {
+subnet 10.10.0.0 netmask 255.255.255.0 {
     range 10.10.9.1 10.10.9.240;
-    #option routers 10.200.24.254;
-    #option broadcast-address 10.200.24.255;
-    option domain-name-servers 10.10.9.1, 10.10.10s.1;
+    option routers 10.10.0.254;
+    option domain-name "b9.lan";
+    option broadcast-address 10.10.9.255;
+    option domain-name-servers 10.10.9.1, 10.10.10.1;
     default-lease-time 30;
     max-lease-time 30;
 }
 log-facility local7;
+
+host windows {
+    hardware ethernet 00:50:56:87:CD:6D;
+    fixed-address 10.10.9.3;
+}
+
+host server-debian {
+    hardware ethernet 00:50:56:b7:b4:43;
+    fixed-address 10.10.9.1;
+}
+
+host client-debian {
+    hardware ethernet 00:50:56:b7:88:d5;
+    fixed-address 10.10.9.4;
+}
+
+host server-mail {
+    hardware ethernet 00:50:56:b7:60:9b;
+    fixed-address 10.10.9.2;
+}
+
+host server-graylog {
+    hardware ethernet 00:50:56:b7:62:9e;
+    fixed-address 10.10.9.5;
+}
+
 
 EOL
 
