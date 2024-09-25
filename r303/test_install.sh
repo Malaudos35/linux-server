@@ -56,8 +56,6 @@ done
 
 aide "test dns"
 
-#!/bin/bash
-
 if sudo named-checkzone b9.lan /etc/bind/db.b9.lan; then
     info "La configuration de la zone est correcte."
 else
@@ -67,11 +65,9 @@ fi
 
 # Définition des hôtes à pinguer avec leurs adresses IP
 hosts=("serveur.b9.lan" 
-"client.b9.lan" 
-"routeur24.b9.lan" 
-"commut24.b9.lan" 
-"site1.b9.lan" 
-"site2.b9.lan" 
+"mail.b9.lan" 
+"graylog.b9.lan" 
+"ns.lan" 
 "google.fr")
 
 # Fonction pour tester le ping vers un hôte
@@ -90,25 +86,25 @@ for host in "${hosts[@]}"; do
 done
 
 
-aide "test ntp"
+# aide "test ntp"
 
 #!/bin/bash
 
 # Fonction pour tester si la synchronisation NTP est établie
-test_ntp() {
-    if ntpq -p | grep -q '^*'; then
-        return 0  # Synchronisation NTP établie
-    else
-        return 1  # Synchronisation NTP non établie
-    fi
-}
+# test_ntp() {
+#     if ntpq -p | grep -q '^*'; then
+#         return 0  # Synchronisation NTP établie
+#     else
+#         return 1  # Synchronisation NTP non établie
+#     fi
+# }
 
 # Tester la synchronisation NTP
-if test_ntp; then
-    info "La synchronisation NTP est établie."
-else
-    error "La synchronisation NTP n'est pas établie."
-fi
+# if test_ntp; then
+#     info "La synchronisation NTP est établie."
+# else
+#     error "La synchronisation NTP n'est pas établie."
+# fi
 
 
 aide "On sais pas comment tester en detail"
