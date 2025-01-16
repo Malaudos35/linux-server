@@ -1,0 +1,49 @@
+# /etc/apache2/apache2.conf
+
+ServerName localhost
+
+Timeout 300
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 5
+HostnameLookups Off
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+LogLevel warn
+
+IncludeOptional mods-enabled/*.load
+IncludeOptional mods-enabled/*.conf
+Include ports.conf
+
+<Directory />
+    Options FollowSymLinks
+    AllowOverride None
+    Require all denied
+</Directory>
+
+<Directory /usr/share>
+    AllowOverride None
+    Require all granted
+</Directory>
+<Directory /var/www/>
+    Options +Indexes +Includes +FollowSymLinks +MultiViews
+    AllowOverride None
+    Require all granted
+</Directory>
+
+<Directory /var/www/server-web/>
+    Options +Indexes +Includes +FollowSymLinks +MultiViews
+    AllowOverride All
+    Require all granted
+</Directory>
+
+AccessFileName .htaccess
+<FilesMatch "^\\.ht">
+    Require all denied
+</FilesMatch>
+
+LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+
+IncludeOptional conf-enabled/*.conf
+IncludeOptional sites-enabled/*.conf
